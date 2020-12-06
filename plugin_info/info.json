@@ -1,0 +1,30 @@
+{
+    "id": "github",
+    "name": "Github",
+    "description": {
+        "fr_FR": "Informations de vos repositories Github",
+        "en_US": "Information of your Github repositories"
+    },
+    "utilization": "Sur la page de l'équipement renseignez l'adresse IP de votre routeur ainsi que l'identifiant et le mot de passe du compte admin, puis cliquez sur le bouton Sauvegarder.",
+    "licence": "AGPL",
+    "author": "hugoKs3",
+    "require": "3.3.39",
+    "category": "programmation",
+    "hasDependency": false,
+    "hasOwnDeamon": false,
+    "maxDependancyInstallTime": 0,
+    "changelog": "https:\/\/hugoks3.github.io\/plugin-github\/#language#\/changelog",
+    "documentation": "https:\/\/hugoks3.github.io\/plugin-github\/#language#\/",
+    "language": [
+        "fr_FR",
+        "en_US"
+    ],
+    "compatibility": [
+        "miniplus",
+        "smart",
+        "rpi",
+        "docker",
+        "diy",
+        "v4"
+    ]
+}

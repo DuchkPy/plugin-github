@@ -1,0 +1,52 @@
+{
+    "plugins\/linksys\/plugin_info\/configuration.php": {
+        "401 - Accès non autorisé": "401 - Accès non autorisé",
+        "Récupération des données à la minute": "Récupération des données à la minute"
+    },
+    "plugins\/linksys\/desktop\/php\/linksys.php": {
+        "401 - Accès non autorisé": "401 - Accès non autorisé",
+        "Gestion": "Gestion",
+        "Ajouter": "Ajouter",
+        "Configuration": "Configuration",
+        "Mes routeurs Linksys": "Mes routeurs Linksys",
+        "Rechercher": "Rechercher",
+        "Configuration avancée": "Configuration avancée",
+        "Dupliquer": "Dupliquer",
+        "Sauvegarder": "Sauvegarder",
+        "Supprimer": "Supprimer",
+        "Equipement": "Equipement",
+        "Commandes": "Commandes",
+        "Nom de l'équipement Linksys": "Nom de l'équipement Linksys",
+        "Objet parent": "Objet parent",
+        "Aucun": "Aucun",
+        "Catégorie": "Catégorie",
+        "Options": "Options",
+        "Activer": "Activer",
+        "Visible": "Visible",
+        "Identifiant Admin": "Identifiant Admin",
+        "Mot de passe Admin": "Mot de passe Admin",
+        "Adresse IP du routeur": "Adresse IP du routeur",
+        "Id": "Id",
+        "Nom": "Nom",
+        "Type": "Type",
+        "Action": "Action"
+    },
+    "plugins\/linksys\/desktop\/js\/linksys.js": {
+        "Min": "Min",
+        "Max": "Max",
+        "Unité": "Unité",
+        "Afficher": "Afficher",
+        "Historiser": "Historiser",
+        "Tester": "Tester"
+    },
+    "plugins\/linksys\/core\/class\/linksys.class.php": {
+        "L\\'adresse IP du routeur doit être renseignée": "L\\'adresse IP du routeur doit être renseignée",
+        "L\\'identifiant du compte Admin doit être renseigné": "L\\'identifiant du compte Admin doit être renseigné",
+        "Le mot de passe du compte Admin doit être renseigné": "Le mot de passe du compte Admin doit être renseigné",
+        "L\\'adresse IP a un format invalide": "L\\'adresse IP a un format invalide",
+        "Impossible de se connecter au routeur, vérifiez vos paramètres": "Impossible de se connecter au routeur, vérifiez vos paramètres"
+    },
+    "info.json": {
+        "Récupérer les informations du compteur communicant Gazpar à partir de son compte-client GRDF.": "Récupérer les informations du compteur communicant Gazpar à partir de son compte-client GRDF."
+    }
+}
