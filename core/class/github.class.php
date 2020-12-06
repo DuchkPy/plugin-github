@@ -96,6 +96,7 @@ class github extends eqLogic {
                         ));
                     }
                 }
+                $eqLogic::refreshInfo();
             }
         }
 	}
@@ -254,6 +255,7 @@ class github extends eqLogic {
                 $cmd->setTemplate('dashboard','tile');
                 $cmd->setTemplate('mobile','tile');
                 $cmd->setOrder(2);
+                $cmd->setDisplay('forceReturnLineAfter', 1);
                 $cmd->save();
             }
             $cmd = $this->getCmd(null, 'issues');
@@ -273,7 +275,7 @@ class github extends eqLogic {
             $cmd = $this->getCmd(null, 'pulls');
             if ( ! is_object($cmd)) {
                 $cmd = new githubCmd();
-                $cmd->setName('Opened pull requests');
+                $cmd->setName('Open pull requests');
                 $cmd->setEqLogic_id($this->getId());
                 $cmd->setLogicalId('pulls');
                 $cmd->setType('info');
@@ -301,7 +303,7 @@ class github extends eqLogic {
     
     public function preInsert() {
       $this->setDisplay('height','150px');
-      $this->setDisplay('width', '384px');
+      $this->setDisplay('width', '280px');
       $this->setIsEnable(1);
       $this->setIsVisible(1);
     }        
