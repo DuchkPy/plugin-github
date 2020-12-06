@@ -277,6 +277,7 @@ class github extends eqLogic {
 	}
     
     function executeGithubAPI($login, $token, $command) {
+        log::add(__CLASS__, 'debug', $this->getHumanName() . ' execute ' . $command);
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.github.com/" . $command,
@@ -296,6 +297,7 @@ class github extends eqLogic {
                 "Authorization: Basic " . base64_encode($login.":".$token))
         ));
         $response = curl_exec($curl);
+        log::add(__CLASS__, 'debug', $this->getHumanName() . ' result of ' . $command . ': ' . $response);
         curl_close($curl);
         return $response;  
     }
