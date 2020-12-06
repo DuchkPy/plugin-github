@@ -1,47 +1,54 @@
-# Plugin Linksys
+# Plugin Github
 
-Plugin permettant de contrôler certains aspects de vos routeurs Linksys compatibles.
+Plugin permettant de récupérer les informations de votre compte Github ainsi que celles de vos différents repositories.
 
 Ce qui est disponible :
-- Modèle et firmware
-- Status du Réseaux Invités et du Contrôle Parental
-- Nombre d'équipements connectés au routeur par type de connexion
-- Activer/Désactiver le contrôle parental
-- Activer/Désactiver le réseau invités
-- Reboot
-
->**Important**      
->**Important**      
->Le plugin a été testé avec un routeur Linksys Velop VLP01 et firmware 1.1.13.202617. Devrait fonctionner pour d'autres modèles également.
+- Compte : nombre de followers
+- Compte : Nombre de following
+- Repository : nombre de watchers
+- Repository : nombre de forks
+- Repository : nombre de tickets ouverts
+- Repository : nombre de pull-reauests ouvertes
 
 # Configuration
 
+## Prérequis
+
+Sur Github, vous devez générer un **personnal access token** et lui donner accès aux scopes suivants : repo (all), notifications, user (all). 
+
+Plus d'informations [ici](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token).
+
 ## Configuration du plugin
 
-Le plugin **Linksys** ne nécessite aucune configuration spécifique et doit seulement être activé après l'installation.
-
-Les données sont vérifiées toutes les 5 minutes.
+Sur la page de configuration du plugin, vous pouvez choisir :
+- de récupérer ou non les repositories privés
+- de récupérer ou non les forks
+- la pièce par défaut pour chaque repository récupéré
 
 ## Configuration des équipements
 
-Pour accéder aux différents équipements **Linksys**, dirigez-vous vers le menu **Plugins → Communication → Linksys**.
+Pour accéder aux différents équipements **Github**, dirigez-vous vers le menu **Plugins → Programmation → Github**.
 
-Sur la page de l'équiement; renseignez l'adresse IP locale du routeur, l'identifiant du compte Admin (normalement 'admin'), et le mot de passe du compte Admin.
+Cliquez sur "Ajouter un compte Github"
+
+Sur la page de l'équipement; renseignez votre login Github, ainsi que le token que vous avez généré (voir plus haut).
+
+Cliquez ensuite sur "Scanner" pour récupérer vos repositories.
 
 # Contributions
 
-Ce plugin gratuit est ouvert à contributions (améliorations et/ou corrections). N'hésitez pas à soumettre vos pull-requests sur <a href="https://github.com/hugoKs3/plugin-linksys" target="_blank">Github</a>
+Ce plugin gratuit est ouvert à contributions (améliorations et/ou corrections). N'hésitez pas à soumettre vos pull-requests sur <a href="https://github.com/hugoKs3/plugin-github" target="_blank">Github</a>
 
 # Credits
 
 Ce pugin s'est inspiré des travaux suivants :
 
--   [reujab](https://github.com/reujab)  via sa librairie Go pour JNAP :  [linksys](https://github.com/reujab/linksys)
+- [jmvedrine](https://github.com/jmvedrine) via son plugin Livebox : [plugin-livebox](https://github.com/jmvedrine/plugin-livebox)
 
 # Disclaimer
 
 -   Ce plugin ne prétend pas être exempt de bugs.
--   Ce plugin vous est fourni sans aucune garantie. Bien que peu probable, si il venait à corrompre votre installation Jeedom ou routeur Linksys, l'auteur ne pourrait en être tenu pour responsable.
+-   Ce plugin vous est fourni sans aucune garantie. Bien que peu probable, si il venait à corrompre votre installation Jeedom, l'auteur ne pourrait en être tenu pour responsable.
 
 # ChangeLog
 Disponible [ici](./changelog.html).

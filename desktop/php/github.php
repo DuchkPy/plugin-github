@@ -23,7 +23,7 @@ foreach ($eqLogics as $eqLogic) {
    <div class="col-xs-12 eqLogicThumbnailDisplay">
   <legend><i class="fas fa-cog"></i>  {{Gestion}}</legend>
   <div class="eqLogicThumbnailContainer">
-      <div class="cursor eqLogicAction logoPrimary" data-action="add">
+      <div class="cursor eqLogicAction logoPrimary" data-action="add" title="{{Ajouter un compte Github}}">
         <i class="fas fa-plus-circle"></i>
         <br>
         <span>{{Ajouter}}</span>

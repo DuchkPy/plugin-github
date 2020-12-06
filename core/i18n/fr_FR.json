@@ -1,35 +1,41 @@
 {
-    "plugins\/linksys\/plugin_info\/configuration.php": {
+    "plugins\/github\/plugin_info\/configuration.php": {
         "401 - Accès non autorisé": "401 - Accès non autorisé",
-        "Récupération des données à la minute": "Récupération des données à la minute"
+        "Paramètres": "Paramètres",
+        "Récupérer les repositories privés": "Récupérer les repositories privés",
+        "Récupérer les forks": "Récupérer les forks",
+        "Pièce par défaut pour les nouveaux repositories": "Pièce par défaut pour les nouveaux repositories"
     },
-    "plugins\/linksys\/desktop\/php\/linksys.php": {
+    "plugins\/linksys\/desktop\/php\/github.php": {
         "401 - Accès non autorisé": "401 - Accès non autorisé",
         "Gestion": "Gestion",
         "Ajouter": "Ajouter",
         "Configuration": "Configuration",
-        "Mes routeurs Linksys": "Mes routeurs Linksys",
+        "Scanner les repositories": "Scanner les repositories",
+        "Scanner": "Scanner",
+        "Mes Comptes Github": "Mes Comptes Github",
+        "Vous n'avez pas encore de compte Github, cliquez sur Ajouter un équipement pour commencer": "Vous n'avez pas encore de compte Github, cliquez sur Ajouter un équipement pour commencer",
+        "Mes Repositories": "Mes Repositories",
         "Rechercher": "Rechercher",
+        "Scannez les repositories pour les créer": "Scannez les repositories pour les créer",
         "Configuration avancée": "Configuration avancée",
-        "Dupliquer": "Dupliquer",
-        "Sauvegarder": "Sauvegarder",
-        "Supprimer": "Supprimer",
         "Equipement": "Equipement",
         "Commandes": "Commandes",
-        "Nom de l'équipement Linksys": "Nom de l'équipement Linksys",
+        "Nom de l'équipement": "Nom de l'équipement",
         "Objet parent": "Objet parent",
         "Aucun": "Aucun",
         "Catégorie": "Catégorie",
-        "Options": "Options",
         "Activer": "Activer",
         "Visible": "Visible",
-        "Identifiant Admin": "Identifiant Admin",
-        "Mot de passe Admin": "Mot de passe Admin",
-        "Adresse IP du routeur": "Adresse IP du routeur",
+        "Login Github": "Login Github",
+        "Token Github": "Token Github",
         "Id": "Id",
         "Nom": "Nom",
         "Type": "Type",
-        "Action": "Action"
+        "Action": "Action",
+        "Options": "Options",
+        "Sauvegarder": "Sauvegarder",
+        "Supprimer": "Supprimer"
     },
     "plugins\/linksys\/desktop\/js\/linksys.js": {
         "Min": "Min",
@@ -37,16 +43,9 @@
         "Unité": "Unité",
         "Afficher": "Afficher",
         "Historiser": "Historiser",
-        "Tester": "Tester"
+        "Tester": "Tester",
+        "Synchronisation réussie": "Synchronisation réussie"
     },
     "plugins\/linksys\/core\/class\/linksys.class.php": {
-        "L\\'adresse IP du routeur doit être renseignée": "L\\'adresse IP du routeur doit être renseignée",
-        "L\\'identifiant du compte Admin doit être renseigné": "L\\'identifiant du compte Admin doit être renseigné",
-        "Le mot de passe du compte Admin doit être renseigné": "Le mot de passe du compte Admin doit être renseigné",
-        "L\\'adresse IP a un format invalide": "L\\'adresse IP a un format invalide",
-        "Impossible de se connecter au routeur, vérifiez vos paramètres": "Impossible de se connecter au routeur, vérifiez vos paramètres"
-    },
-    "info.json": {
-        "Récupérer les informations du compteur communicant Gazpar à partir de son compte-client GRDF.": "Récupérer les informations du compteur communicant Gazpar à partir de son compte-client GRDF."
     }
 }
