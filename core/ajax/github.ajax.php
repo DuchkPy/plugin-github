@@ -29,11 +29,7 @@ try {
 			if (!isConnect('admin')) {
 				throw new \Exception('401 Unauthorized');
 			}
-			if(init('what'))
-				$param=init('what');
-			else
-				$param=null;
-			github::syncGithub($param);
+			github::syncGithub();
 			ajax::success();
 			break;
 	}

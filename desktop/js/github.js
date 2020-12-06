@@ -104,8 +104,7 @@ $('.eqLogicAction[data-action=discover]').on('click', function (e) {
 		type: "POST", // methode de transmission des données au fichier php
 		url: "plugins/github/core/ajax/github.ajax.php", // url du fichier php
 		data: {
-			action: "syncGithub",
-			what: what
+			action: "syncGithub"
 		},
 		dataType: 'json',
 		error: function (request, status, error) {
@@ -116,7 +115,7 @@ $('.eqLogicAction[data-action=discover]').on('click', function (e) {
 				$('#div_alert').showAlert({message: data.result, level: 'danger'});
 				return;
 			}
-			$('#div_alert').showAlert({message: '{{Synchronisation réussie}} : '+what, level: 'success'});
+			$('#div_alert').showAlert({message: '{{Synchronisation réussie}}', level: 'success'});
 			location.reload();
 	  }
 	});

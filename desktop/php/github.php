@@ -153,12 +153,6 @@ foreach (jeeObject::all() as $object) {
 		</div>
 	</div>
 	<br>
-	<div class="form-group">
-	 <label class="col-sm-3 control-label">{{Adresse IP du routeur}}</label>
-	 <div class="col-sm-3">
-			 <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ip" placeholder="Adresse IP du routeur"/>
-	 </div>
-</div>
 	<div class="form-group" id="div_loginGithub">
 	 <label class="col-sm-3 control-label">{{Identifiant Admin}}</label>
 	 <div class="col-sm-3">

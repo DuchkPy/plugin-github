@@ -60,38 +60,36 @@ class github extends eqLogic {
 		$eqLogicClient->save();
 	}
 
-	public static function syncGithub($what='all') {
+	public static function syncGithub() {
 		log::add('github', 'info', "syncGithub");
 
-		if($what == 'all' || $what == 'clients') {
-			$eqLogics = eqLogic::byType('github');
-			foreach ($eqLogics as $eqLogic) {
-				if($eqLogic->getConfiguration('type','') != 'account' || $eqLogic->getIsEnable() != 1) {
-					continue;
-				}
-                $content = $eqLogic->executeGithubAPI($this->getConfiguration('login'), $this->getConfiguration('token'), 'users/'.$this->getConfiguration('login').'/repos');
-                $obj = json_decode($content);
-                
-                if (isset($obj->message)) {
-                    log::add(__CLASS__, 'error', $this->getHumanName() . ' users/'.$this->getConfiguration('login').'/repos:' . $obj->message);
-                } 
-                else {
-                    foreach ($obj as $repo) {
+        $eqLogics = eqLogic::byType('github');
+        foreach ($eqLogics as $eqLogic) {
+            if($eqLogic->getConfiguration('type','') != 'account' || $eqLogic->getIsEnable() != 1) {
+                continue;
+            }
+            $content = $eqLogic->executeGithubAPI($this->getConfiguration('login'), $this->getConfiguration('token'), 'users/'.$this->getConfiguration('login').'/repos');
+            $obj = json_decode($content);
+
+            if (isset($obj->message)) {
+                log::add(__CLASS__, 'error', $this->getHumanName() . ' users/'.$this->getConfiguration('login').'/repos:' . $obj->message);
+            } 
+            else {
+                foreach ($obj as $repo) {
+                    $existingRepo = github::byLogicalId($repo->id, 'github');
+                    if (!is_object($existingRepo)) {
+                        // new repo
+                        github::createRepo($repo, $this->getConfiguration('login'));
                         $existingRepo = github::byLogicalId($repo->id, 'github');
-                        if (!is_object($existingRepo)) {
-                            // new repo
-                            github::createRepo($repo, $this->getConfiguration('login'));
-                            $existingRepo = github::byLogicalId($repo->id, 'github');
-                            event::add('jeedom::alert', array(
-                                'level' => 'warning',
-                                'page' => 'github',
-                                'message' => __('Repository inclus avec succès : ' .$existingRepo->name, __FILE__),
-                            ));
-                        }
+                        event::add('jeedom::alert', array(
+                            'level' => 'warning',
+                            'page' => 'github',
+                            'message' => __('Repository inclus avec succès : ' .$existingRepo->name, __FILE__),
+                        ));
                     }
                 }
-			}
-		}
+            }
+        }
 	}
 
 	public static function removeAllRepos($account) {
