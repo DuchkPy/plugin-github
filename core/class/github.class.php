@@ -31,8 +31,8 @@ class github extends eqLogic {
 	}
 
 	public static function nameExists($name) {
-			$allLivebox=eqLogic::byType('github');
-			foreach($allLivebox as $u) {
+			$allGithub=eqLogic::byType('github');
+			foreach($allGithub as $u) {
 				if($name == $u->getName()) return true;
 			}
 			return false;
@@ -40,9 +40,9 @@ class github extends eqLogic {
 
 	public static function createRepo($repo, $account) {
 		$eqLogicClient = new github();
-		$repoId = $repo['id'];
+		$repoId = $repo->id;
 		$defaultRoom = intval(config::byKey('defaultParentObject','github','',true));
-		$name = (isset($repo["name"]) && $repo["name"]) ? $repo["name"] : $repoId;
+		$name = (isset($repo->name) && $repo->name) ? $repo->name : $repoId;
 		if(self::nameExists($name)) {
 			log::add('github', 'debug', "Nom en double ".$name." renommé en ".$name.'_'.$repoId);
 			$name = $name.'_'.$repoId;
@@ -116,7 +116,7 @@ class github extends eqLogic {
             if ( $this->getIsEnable() ) {
                 $cmd = $this->getCmd(null, 'id');
                 if ( ! is_object($cmd)) {
-                    $cmd = new liveboxCmd();
+                    $cmd = new githubCmd();
                     $cmd->setName('ID');
                     $cmd->setEqLogic_id($this->getId());
                     $cmd->setLogicalId('id');
@@ -128,7 +128,7 @@ class github extends eqLogic {
                 }
                 $cmd = $this->getCmd(null, 'login');
                 if ( ! is_object($cmd)) {
-                    $cmd = new liveboxCmd();
+                    $cmd = new githubCmd();
                     $cmd->setName('Login');
                     $cmd->setEqLogic_id($this->getId());
                     $cmd->setLogicalId('login');
@@ -140,7 +140,7 @@ class github extends eqLogic {
                 }
                 $cmd = $this->getCmd(null, 'name');
                 if ( ! is_object($cmd)) {
-                    $cmd = new liveboxCmd();
+                    $cmd = new githubCmd();
                     $cmd->setName('Name');
                     $cmd->setEqLogic_id($this->getId());
                     $cmd->setLogicalId('name');
@@ -152,7 +152,7 @@ class github extends eqLogic {
                 }
                 $cmd = $this->getCmd(null, 'followers');
                 if ( ! is_object($cmd)) {
-                    $cmd = new liveboxCmd();
+                    $cmd = new githubCmd();
                     $cmd->setName('Followers');
                     $cmd->setEqLogic_id($this->getId());
                     $cmd->setLogicalId('followers');
@@ -163,7 +163,7 @@ class github extends eqLogic {
                 }
                 $cmd = $this->getCmd(null, 'following');
                 if ( ! is_object($cmd)) {
-                    $cmd = new liveboxCmd();
+                    $cmd = new githubCmd();
                     $cmd->setName('Following');
                     $cmd->setEqLogic_id($this->getId());
                     $cmd->setLogicalId('following');
@@ -176,7 +176,7 @@ class github extends eqLogic {
 		} else if ($this->getConfiguration('type','') == 'repo') {
             $cmd = $this->getCmd(null, 'id');
             if ( ! is_object($cmd)) {
-                $cmd = new liveboxCmd();
+                $cmd = new githubCmd();
                 $cmd->setName('ID');
                 $cmd->setEqLogic_id($this->getId());
                 $cmd->setLogicalId('id');
@@ -188,7 +188,7 @@ class github extends eqLogic {
             }
             $cmd = $this->getCmd(null, 'name');
             if ( ! is_object($cmd)) {
-                $cmd = new liveboxCmd();
+                $cmd = new githubCmd();
                 $cmd->setName('Name');
                 $cmd->setEqLogic_id($this->getId());
                 $cmd->setLogicalId('name');
@@ -200,7 +200,7 @@ class github extends eqLogic {
             }
             $cmd = $this->getCmd(null, 'fork');
             if ( ! is_object($cmd)) {
-                $cmd = new liveboxCmd();
+                $cmd = new githubCmd();
                 $cmd->setName('Fork');
                 $cmd->setEqLogic_id($this->getId());
                 $cmd->setLogicalId('fork');
@@ -212,7 +212,7 @@ class github extends eqLogic {
             }
             $cmd = $this->getCmd(null, 'watchers');
             if ( ! is_object($cmd)) {
-                $cmd = new liveboxCmd();
+                $cmd = new githubCmd();
                 $cmd->setName('Watchers');
                 $cmd->setEqLogic_id($this->getId());
                 $cmd->setLogicalId('watchers');
@@ -223,7 +223,7 @@ class github extends eqLogic {
             }
             $cmd = $this->getCmd(null, 'forks');
             if ( ! is_object($cmd)) {
-                $cmd = new liveboxCmd();
+                $cmd = new githubCmd();
                 $cmd->setName('Forks');
                 $cmd->setEqLogic_id($this->getId());
                 $cmd->setLogicalId('forks');
@@ -234,7 +234,7 @@ class github extends eqLogic {
             }
             $cmd = $this->getCmd(null, 'issues');
             if ( ! is_object($cmd)) {
-                $cmd = new liveboxCmd();
+                $cmd = new githubCmd();
                 $cmd->setName('Open issues');
                 $cmd->setEqLogic_id($this->getId());
                 $cmd->setLogicalId('issues');
@@ -245,7 +245,7 @@ class github extends eqLogic {
             }
             $cmd = $this->getCmd(null, 'private');
             if ( ! is_object($cmd)) {
-                $cmd = new liveboxCmd();
+                $cmd = new githubCmd();
                 $cmd->setName('Private');
                 $cmd->setEqLogic_id($this->getId());
                 $cmd->setLogicalId('private');
@@ -357,7 +357,7 @@ class github extends eqLogic {
 	}
 }
 
-class liveboxCmd extends cmd
+class githubCmd extends cmd
 {
 	/*	   * *************************Attributs****************************** */
 

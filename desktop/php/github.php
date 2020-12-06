@@ -121,7 +121,7 @@ foreach ($eqLogics as $eqLogic) {
                     <label class="col-lg-2 control-label">{{Nom de l'équipement}}</label>
                     <div class="col-lg-3">
                         <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
-                        <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de la Livebox}}"/>
+                        <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom du compte Gihub}}"/>
                     </div>
                 </div>
                 <div class="form-group">

@@ -9,7 +9,7 @@
     "licence": "AGPL",
     "author": "hugoKs3",
     "require": "3.3.39",
-    "category": "programmation",
+    "category": "programming",
     "hasDependency": false,
     "hasOwnDeamon": false,
     "maxDependancyInstallTime": 0,
