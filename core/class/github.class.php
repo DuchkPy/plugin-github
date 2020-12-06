@@ -39,6 +39,14 @@ class github extends eqLogic {
 	}
 
 	public static function createRepo($repo, $account) {
+        if ($repo->private && !config::byKey('getPrivate','github',0) {
+            log::add('github', 'debug', "Repository " . $repo->name . " skipped because private");
+            return;
+        }
+        if ($repo->fork && !config::byKey('getForks','github',0) {
+            log::add('github', 'debug', "Repository " . $repo->name . " skipped because fork");
+            return;
+        }
 		$eqLogicClient = new github();
 		$repoId = $repo->id;
 		$defaultRoom = intval(config::byKey('defaultParentObject','github','',true));
@@ -47,7 +55,7 @@ class github extends eqLogic {
 			log::add('github', 'debug', "Nom en double ".$name." renommé en ".$name.'_'.$repoId);
 			$name = $name.'_'.$repoId;
 		}
-		log::add('github', 'info', "Trouvé Repository ".$name."(".$repoId.")");
+		log::add('github', 'info', "Repository créé : ".$name."(".$repoId.")");
 		$eqLogicClient->setName($name);
 		$eqLogicClient->setIsEnable(1);
 		$eqLogicClient->setIsVisible(1);
@@ -122,6 +130,7 @@ class github extends eqLogic {
                     $cmd->setSubType('string');
                     $cmd->setGeneric_type('GENERIC_INFO');
                     $cmd->setIsHistorized(0);
+                    $cmd->setIsVisible(0);
                     $cmd->save();
                 }
                 $cmd = $this->getCmd(null, 'login');
@@ -134,6 +143,7 @@ class github extends eqLogic {
                     $cmd->setSubType('string');
                     $cmd->setGeneric_type('GENERIC_INFO');
                     $cmd->setIsHistorized(0);
+                    $cmd->setIsVisible(0);
                     $cmd->save();
                 }
                 $cmd = $this->getCmd(null, 'name');
@@ -146,6 +156,7 @@ class github extends eqLogic {
                     $cmd->setSubType('string');
                     $cmd->setGeneric_type('GENERIC_INFO');
                     $cmd->setIsHistorized(0);
+                    $cmd->setIsVisible(0);
                     $cmd->save();
                 }
                 $cmd = $this->getCmd(null, 'followers');
@@ -157,6 +168,9 @@ class github extends eqLogic {
                     $cmd->setType('info');
                     $cmd->setSubType('numeric');
                     $cmd->setIsHistorized(1);
+                    $cmd->setTemplate('dashboard','tile');
+                    $cmd->setTemplate('mobile','tile');
+                    $cmd->setOrder(1);
                     $cmd->save();
                 }
                 $cmd = $this->getCmd(null, 'following');
@@ -168,6 +182,9 @@ class github extends eqLogic {
                     $cmd->setType('info');
                     $cmd->setSubType('numeric');
                     $cmd->setIsHistorized(1);
+                    $cmd->setTemplate('dashboard','tile');
+                    $cmd->setTemplate('mobile','tile');
+                    $cmd->setOrder(2);
                     $cmd->save();
                 }
             }
@@ -182,6 +199,7 @@ class github extends eqLogic {
                 $cmd->setSubType('string');
                 $cmd->setGeneric_type('GENERIC_INFO');
                 $cmd->setIsHistorized(0);
+                $cmd->setIsVisible(0);
                 $cmd->save();
             }
             $cmd = $this->getCmd(null, 'name');
@@ -194,6 +212,7 @@ class github extends eqLogic {
                 $cmd->setSubType('string');
                 $cmd->setGeneric_type('GENERIC_INFO');
                 $cmd->setIsHistorized(0);
+                $cmd->setIsVisible(0);
                 $cmd->save();
             }
             $cmd = $this->getCmd(null, 'fork');
@@ -206,6 +225,7 @@ class github extends eqLogic {
                 $cmd->setSubType('binary');
                 $cmd->setGeneric_type('GENERIC_INFO');
                 $cmd->setIsHistorized(0);
+                $cmd->setIsVisible(0);
                 $cmd->save();
             }
             $cmd = $this->getCmd(null, 'watchers');
@@ -217,6 +237,9 @@ class github extends eqLogic {
                 $cmd->setType('info');
                 $cmd->setSubType('numeric');
                 $cmd->setIsHistorized(1);
+                $cmd->setTemplate('dashboard','tile');
+                $cmd->setTemplate('mobile','tile');
+                $cmd->setOrder(1);
                 $cmd->save();
             }
             $cmd = $this->getCmd(null, 'forks');
@@ -228,6 +251,9 @@ class github extends eqLogic {
                 $cmd->setType('info');
                 $cmd->setSubType('numeric');
                 $cmd->setIsHistorized(1);
+                $cmd->setTemplate('dashboard','tile');
+                $cmd->setTemplate('mobile','tile');
+                $cmd->setOrder(2);
                 $cmd->save();
             }
             $cmd = $this->getCmd(null, 'issues');
@@ -239,6 +265,23 @@ class github extends eqLogic {
                 $cmd->setType('info');
                 $cmd->setSubType('numeric');
                 $cmd->setIsHistorized(1);
+                $cmd->setTemplate('dashboard','tile');
+                $cmd->setTemplate('mobile','tile');
+                $cmd->setOrder(3);
+                $cmd->save();
+            }
+            $cmd = $this->getCmd(null, 'pulls');
+            if ( ! is_object($cmd)) {
+                $cmd = new githubCmd();
+                $cmd->setName('Opened pull requests');
+                $cmd->setEqLogic_id($this->getId());
+                $cmd->setLogicalId('pulls');
+                $cmd->setType('info');
+                $cmd->setSubType('numeric');
+                $cmd->setIsHistorized(1);
+                $cmd->setTemplate('dashboard','tile');
+                $cmd->setTemplate('mobile','tile');
+                $cmd->setOrder(4);
                 $cmd->save();
             }
             $cmd = $this->getCmd(null, 'private');
@@ -250,13 +293,21 @@ class github extends eqLogic {
                 $cmd->setType('info');
                 $cmd->setSubType('binary');
                 $cmd->setIsHistorized(1);
+                $cmd->setIsVisible(0);
                 $cmd->save();
             }
 		}
 	}
+    
+    public function preInsert() {
+      $this->setDisplay('height','150px');
+      $this->setDisplay('width', '384px');
+      $this->setIsEnable(1);
+      $this->setIsVisible(1);
+    }        
 
 	public function preRemove() {
-		if ($this->getConfiguration('type') == "account") { // Si c'est un type box il faut supprimer ses clients
+		if ($this->getConfiguration('type') == "account") {
 			self::removeAllRepos($this->getId());
 		}
 	}
@@ -350,6 +401,16 @@ class github extends eqLogic {
                         $existingRepo->checkAndUpdateCmd('issues', $repo->issues);
                         $eqLogic_cmd = $existingRepo->getCmd(null, 'private');
                         $existingRepo->checkAndUpdateCmd('private', $repo->private);
+                        
+                        $content = $this->executeGithubAPI($this->getConfiguration('login'), $this->getConfiguration('token'), 'repos/' . $this->getConfiguration('login') . '/' . $repo->name . '/pulls?state=open');
+                        $pulls = json_decode($content);  
+                        if (isset($obj->message)) {
+                            log::add(__CLASS__, 'error', $this->getHumanName() . ' repos/' . $this->getConfiguration('login') . '/' . $repo->name . '/pulls?state=open: ' . $pulls->message);
+                        } 
+                        else {
+                            $eqLogic_cmd = $existingRepo->getCmd(null, 'pulls');
+                            $existingRepo->checkAndUpdateCmd('pulls', count($pulls));
+                        }
                     }
                 }
             }
