@@ -33,6 +33,11 @@ foreach ($eqLogics as $eqLogic) {
     <br>
     <span>{{Configuration}}</span>
   </div>
+      <div class="cursor eqLogicAction logoPrimary" data-action="discover" data-action2="repos" title="{{Scanner les repositories}}">
+      <i class="fas fa-bullseye"></i>
+    <br>
+    <span>{{Scanner}}</span>
+  </div>
   </div>
         <legend><i class="fas fa-table"></i>{{Mes Comptes Github}}
         </legend>
@@ -70,11 +75,6 @@ foreach ($eqLogics as $eqLogic) {
         <div class="panel">
             <div class="panel-body">
                 <div class="eqLogicThumbnailContainer  second">
-                    <div class="cursor eqLogicAction logoPrimary" data-action="discover" data-action2="repos" title="{{Scanner les repositories}}">
-                        <i class="fas fa-bullseye"></i>
-                        <br>
-                        <span>{{Scanner}}</span>
-                    </div>
                     <?php
                     if($has['repo']) {
                 foreach ($eqLogics as $eqLogic) {
