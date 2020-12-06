@@ -96,7 +96,7 @@ class github extends eqLogic {
                         ));
                     }
                 }
-                $eqLogic::refreshInfo();
+                $eqLogic->refreshInfo();
             }
         }
 	}
