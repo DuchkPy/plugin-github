@@ -31,6 +31,24 @@ $('.eqLogicAttr[data-l1key=configuration][data-l2key=type]').on('change',functio
 	}
 });
 
+// fonction executée par jeedom lors de l'affichage des details d'un eqlogic
+function printEqLogic(_eqLogic) {
+	if (!isset(_eqLogic)) {
+		var _eqLogic = {configuration: {}};
+	}
+	if (!isset(_eqLogic.configuration)) {
+		_eqLogic.configuration = {};
+	}
+	if (_eqLogic.configuration.type=="account") {
+		$('#div_loginGithub').show();
+		$('#div_tokenGithub').show();
+	}
+	if (_eqLogic.configuration.type=="repo") {
+		$('#div_loginGithub').hide();
+		$('#div_tokenGithub').hide();
+	}
+}
+
 function addCmdToTable(_cmd) {
    if (!isset(_cmd)) {
         var _cmd = {configuration: {}};
