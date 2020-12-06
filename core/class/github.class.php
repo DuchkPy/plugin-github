@@ -68,18 +68,18 @@ class github extends eqLogic {
             if($eqLogic->getConfiguration('type','') != 'account' || $eqLogic->getIsEnable() != 1) {
                 continue;
             }
-            $content = $eqLogic->executeGithubAPI($this->getConfiguration('login'), $this->getConfiguration('token'), 'users/'.$this->getConfiguration('login').'/repos');
+            $content = $eqLogic->executeGithubAPI($eqLogic->getConfiguration('login'), $eqLogic->getConfiguration('token'), 'users/'.$eqLogic->getConfiguration('login').'/repos');
             $obj = json_decode($content);
 
             if (isset($obj->message)) {
-                log::add(__CLASS__, 'error', $this->getHumanName() . ' users/'.$this->getConfiguration('login').'/repos:' . $obj->message);
+                log::add(__CLASS__, 'error', $eqLogic->getHumanName() . ' users/'.$eqLogic->getConfiguration('login').'/repos:' . $obj->message);
             } 
             else {
                 foreach ($obj as $repo) {
                     $existingRepo = github::byLogicalId($repo->id, 'github');
                     if (!is_object($existingRepo)) {
                         // new repo
-                        github::createRepo($repo, $this->getConfiguration('login'));
+                        github::createRepo($repo, $eqLogic->getConfiguration('login'));
                         $existingRepo = github::byLogicalId($repo->id, 'github');
                         event::add('jeedom::alert', array(
                             'level' => 'warning',
@@ -274,7 +274,7 @@ class github extends eqLogic {
 		}
 	}
     
-    function executeGithubAPI($login, $token, $command) {
+    public function executeGithubAPI($login, $token, $command) {
         log::add(__CLASS__, 'debug', $this->getHumanName() . ' execute ' . $command);
         $curl = curl_init();
         curl_setopt_array($curl, array(

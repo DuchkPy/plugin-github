@@ -154,13 +154,13 @@ foreach (jeeObject::all() as $object) {
 	</div>
 	<br>
 	<div class="form-group" id="div_loginGithub">
-	 <label class="col-sm-3 control-label">{{Identifiant Admin}}</label>
+	 <label class="col-sm-3 control-label">{{Login Github}}</label>
 	 <div class="col-sm-3">
 			 <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="login" placeholder="Login Github"/>
 	 </div>
 </div>
 		<div class="form-group" id="div_tokenGithub">
-		 <label class="col-sm-3 control-label">{{Mot de passe Admin}}</label>
+		 <label class="col-sm-3 control-label">{{Token Github}}</label>
 		 <div class="col-sm-3">
 				 <input type="password" autocomplete="new-password" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="token" placeholder="Token Github"/>
 		 </div>
