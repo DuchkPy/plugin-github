@@ -39,11 +39,11 @@ class github extends eqLogic {
 	}
 
 	public static function createRepo($repo, $account) {
-        if ($repo->private && !config::byKey('getPrivate','github',0) {
+        if ($repo->private && !config::byKey('getPrivate','github',0)) {
             log::add('github', 'debug', "Repository " . $repo->name . " skipped because private");
             return;
         }
-        if ($repo->fork && !config::byKey('getForks','github',0) {
+        if ($repo->fork && !config::byKey('getForks','github',0)) {
             log::add('github', 'debug', "Repository " . $repo->name . " skipped because fork");
             return;
         }
