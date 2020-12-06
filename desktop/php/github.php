@@ -60,7 +60,7 @@ foreach ($eqLogics as $eqLogic) {
                 </div>
             </div>
         </div>
-        <legend><i class="fas fa-table"></i> {{Mes Repositories}} <span class="cursor eqLogicAction" style="color:#fcc127" data-action="discover" data-action2="repos" title="{{Scanner les repositories}}"><i class="fas fa-bullseye"></i></span></legend>
+        <legend><i class="fas fa-table"></i> {{Mes Repositories}} </legend>
         <div class="input-group" style="margin-bottom:5px;">
             <input class="form-control roundedLeft" placeholder="{{Rechercher}}" id="in_searchEqlogic2" />
             <div class="input-group-btn">
@@ -70,6 +70,11 @@ foreach ($eqLogics as $eqLogic) {
         <div class="panel">
             <div class="panel-body">
                 <div class="eqLogicThumbnailContainer  second">
+                    <div class="cursor eqLogicAction logoPrimary" data-action="discover" data-action2="repos" title="{{Scanner les repositories}}">
+                        <i class="fas fa-bullseye"></i>
+                        <br>
+                        <span>{{Scanner}}</span>
+                    </div>
                     <?php
                     if($has['repo']) {
                 foreach ($eqLogics as $eqLogic) {
