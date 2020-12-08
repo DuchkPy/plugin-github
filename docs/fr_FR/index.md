@@ -8,7 +8,7 @@ Ce qui est disponible :
 - Repository : nombre de watchers
 - Repository : nombre de forks
 - Repository : nombre de tickets ouverts
-- Repository : nombre de pull-reauests ouvertes
+- Repository : nombre de pull-requests ouvertes
 
 # Configuration
 
@@ -31,7 +31,7 @@ Pour accéder aux différents équipements **Github**, dirigez-vous vers le menu
 
 Cliquez sur "Ajouter un compte Github"
 
-Sur la page de l'équipement; renseignez votre login Github, ainsi que le token que vous avez généré (voir plus haut).
+Sur la page de l'équipement, renseignez votre login Github, ainsi que le token que vous avez généré (voir plus haut).
 
 Cliquez ensuite sur "Scanner" pour récupérer vos repositories.
 
@@ -41,7 +41,7 @@ Ce plugin gratuit est ouvert à contributions (améliorations et/ou corrections)
 
 # Credits
 
-Ce pugin s'est inspiré des travaux suivants :
+Ce plugin s'est inspiré des travaux suivants :
 
 - [jmvedrine](https://github.com/jmvedrine) via son plugin Livebox : [plugin-livebox](https://github.com/jmvedrine/plugin-livebox)
 
