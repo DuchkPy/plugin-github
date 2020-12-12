@@ -284,6 +284,35 @@ class github extends eqLogic {
                 $cmd->setTemplate('dashboard','tile');
                 $cmd->setTemplate('mobile','tile');
                 $cmd->setOrder(4);
+                $cmd->setDisplay('forceReturnLineAfter', 1);
+                $cmd->save();
+            }
+            $cmd = $this->getCmd(null, 'daily_unique_clones');
+            if ( ! is_object($cmd)) {
+                $cmd = new githubCmd();
+                $cmd->setName('Clones par jour');
+                $cmd->setEqLogic_id($this->getId());
+                $cmd->setLogicalId('daily_unique_clones');
+                $cmd->setType('info');
+                $cmd->setSubType('numeric');
+                $cmd->setIsHistorized(1);
+                $cmd->setTemplate('dashboard','tile');
+                $cmd->setTemplate('mobile','tile');
+                $cmd->setOrder(5);
+                $cmd->save();
+            }
+            $cmd = $this->getCmd(null, 'daily_unique_views');
+            if ( ! is_object($cmd)) {
+                $cmd = new githubCmd();
+                $cmd->setName('Vues par jour');
+                $cmd->setEqLogic_id($this->getId());
+                $cmd->setLogicalId('daily_unique_views');
+                $cmd->setType('info');
+                $cmd->setSubType('numeric');
+                $cmd->setIsHistorized(1);
+                $cmd->setTemplate('dashboard','tile');
+                $cmd->setTemplate('mobile','tile');
+                $cmd->setOrder(6);
                 $cmd->save();
             }
             $cmd = $this->getCmd(null, 'private');
@@ -302,7 +331,11 @@ class github extends eqLogic {
 	}
     
     public function preInsert() {
-      $this->setDisplay('height','150px');
+      if ($this->getConfiguration('type','') == 'account') {
+          $this->setDisplay('height','75px');
+      } else {
+          $this->setDisplay('height','225px');
+      }
       $this->setDisplay('width', '280px');
       $this->setIsEnable(1);
       $this->setIsVisible(1);
@@ -361,15 +394,10 @@ class github extends eqLogic {
             log::add(__CLASS__, 'error', $this->getHumanName() . ' user:' . $obj->message);
         } 
         else {      
-            $eqLogic_cmd = $this->getCmd(null, 'id');
 			$this->checkAndUpdateCmd('id', $obj->id);
-            $eqLogic_cmd = $this->getCmd(null, 'login');
 			$this->checkAndUpdateCmd('login', $obj->login);
-            $eqLogic_cmd = $this->getCmd(null, 'name');
 			$this->checkAndUpdateCmd('name', $obj->name);
-            $eqLogic_cmd = $this->getCmd(null, 'followers');
 			$this->checkAndUpdateCmd('followers', $obj->followers);
-            $eqLogic_cmd = $this->getCmd(null, 'following');
 			$this->checkAndUpdateCmd('following', $obj->following);
         }
 
@@ -389,19 +417,12 @@ class github extends eqLogic {
                 }
                 if (is_object($existingRepo)) {
                     if ($existingRepo->getIsEnable()) {
-                        $eqLogic_cmd = $existingRepo->getCmd(null, 'id');
                         $existingRepo->checkAndUpdateCmd('id', $repo->id);
-                        $eqLogic_cmd = $existingRepo->getCmd(null, 'name');
                         $existingRepo->checkAndUpdateCmd('name', $repo->name);
-                        $eqLogic_cmd = $existingRepo->getCmd(null, 'fork');
                         $existingRepo->checkAndUpdateCmd('fork', $repo->fork);
-                        $eqLogic_cmd = $existingRepo->getCmd(null, 'watchers');
                         $existingRepo->checkAndUpdateCmd('watchers', $repo->watchers);
-                        $eqLogic_cmd = $existingRepo->getCmd(null, 'forks');
                         $existingRepo->checkAndUpdateCmd('forks', $repo->forks);
-                        $eqLogic_cmd = $existingRepo->getCmd(null, 'issues');
                         $existingRepo->checkAndUpdateCmd('issues', $repo->issues);
-                        $eqLogic_cmd = $existingRepo->getCmd(null, 'private');
                         $existingRepo->checkAndUpdateCmd('private', $repo->private);
                         
                         $content = $this->executeGithubAPI($this->getConfiguration('login'), $this->getConfiguration('token'), 'repos/' . $this->getConfiguration('login') . '/' . $repo->name . '/pulls?state=open');
@@ -410,8 +431,57 @@ class github extends eqLogic {
                             log::add(__CLASS__, 'error', $this->getHumanName() . ' repos/' . $this->getConfiguration('login') . '/' . $repo->name . '/pulls?state=open: ' . $pulls->message);
                         } 
                         else {
-                            $eqLogic_cmd = $existingRepo->getCmd(null, 'pulls');
                             $existingRepo->checkAndUpdateCmd('pulls', count($pulls));
+                        }
+                        
+                        $content = $this->executeGithubAPI($this->getConfiguration('login'), $this->getConfiguration('token'), 'repos/' . $this->getConfiguration('login') . '/' . $repo->name . '/traffic/clones?per=day');
+                        $clones = json_decode($content);
+                        if (isset($obj->message)) {
+                            log::add(__CLASS__, 'error', $this->getHumanName() . ' repos/' . $this->getConfiguration('login') . '/' . $repo->name . '/traffic/clones?per=day: ' . $clones->message);
+                        } 
+                        else {
+                            $eqLogic_cmd = $existingRepo->getCmd(null, 'clones');
+                            $cmdId = $eqLogic_cmd->getId();
+                            foreach ($clones->clones as $clone) {
+                                $dt = DateTime::createFromFormat('Y-m-d', substr($clone->timestamp, 0, 10));
+                                if (is_bool($dt)) {
+                                    return;
+                                }
+                                $dateReal = $dt->format('Y-m-d 12:00:00');
+                            }
+                            $cmdHistory = history::byCmdIdDatetime($cmdId, $dateReal);
+                            if (is_object($cmdHistory) && $cmdHistory->getValue() == $clone->uniques) {
+                                log::add(__CLASS__, 'debug', $this->getHumanName() . ' Clones en historique - Aucune action : ' . ' Date = ' . $dateReal . ' => Mesure = ' . $clone->uniques);
+                            }
+                            else {      
+                                log::add(__CLASS__, 'debug', $this->getHumanName() . ' Enregistrement clones : ' . ' Date = ' . $dateReal . ' => Mesure = ' . $clone->uniques);
+                                $eqLogic_cmd->event($clone->uniques, $dateReal);
+                            }
+                        }
+                        
+                        $content = $this->executeGithubAPI($this->getConfiguration('login'), $this->getConfiguration('token'), 'repos/' . $this->getConfiguration('login') . '/' . $repo->name . '/traffic/views?per=day');
+                        $views = json_decode($content);
+                        if (isset($obj->message)) {
+                            log::add(__CLASS__, 'error', $this->getHumanName() . ' repos/' . $this->getConfiguration('login') . '/' . $repo->name . '/traffic/views?per=day: ' . $clones->message);
+                        } 
+                        else {
+                            $eqLogic_cmd = $existingRepo->getCmd(null, 'views');
+                            $cmdId = $eqLogic_cmd->getId();
+                            foreach ($views->views as $view) {
+                                $dt = DateTime::createFromFormat('Y-m-d', substr($view->timestamp, 0, 10));
+                                if (is_bool($dt)) {
+                                    return;
+                                }
+                                $dateReal = $dt->format('Y-m-d 12:00:00');
+                            }
+                            $cmdHistory = history::byCmdIdDatetime($cmdId, $dateReal);
+                            if (is_object($cmdHistory) && $cmdHistory->getValue() == $view->uniques) {
+                                log::add(__CLASS__, 'debug', $this->getHumanName() . ' Views en historique - Aucune action : ' . ' Date = ' . $dateReal . ' => Mesure = ' . $view->uniques);
+                            }
+                            else {      
+                                log::add(__CLASS__, 'debug', $this->getHumanName() . ' Enregistrement views : ' . ' Date = ' . $dateReal . ' => Mesure = ' . $view->uniques);
+                                $eqLogic_cmd->event($view->uniques, $dateReal);
+                            }
                         }
                     }
                 }
