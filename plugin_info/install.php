@@ -62,9 +62,9 @@ function github_update() {
                 $cmd->setOrder(6);
                 $cmd->save();
             }
-            $this->setDisplay('height','225px');
+            $eqLogic->setDisplay('height','225px');
 		} else {
-            $this->setDisplay('height','75px');
+            $eqLogic->setDisplay('height','75px');
         }
     
 		$eqLogic->save();
