@@ -448,14 +448,14 @@ class github extends eqLogic {
                                     return;
                                 }
                                 $dateReal = $dt->format('Y-m-d 12:00:00');
-                            }
-                            $cmdHistory = history::byCmdIdDatetime($cmdId, $dateReal);
-                            if (is_object($cmdHistory) && $cmdHistory->getValue() == $clone->uniques) {
-                                log::add(__CLASS__, 'debug', $this->getHumanName() . ' Clones en historique - Aucune action : ' . ' Date = ' . $dateReal . ' => Mesure = ' . $clone->uniques);
-                            }
-                            else {      
-                                log::add(__CLASS__, 'debug', $this->getHumanName() . ' Enregistrement clones : ' . ' Date = ' . $dateReal . ' => Mesure = ' . $clone->uniques);
-                                $eqLogic_cmd->event($clone->uniques, $dateReal);
+                                $cmdHistory = history::byCmdIdDatetime($cmdId, $dateReal);
+                                if (is_object($cmdHistory) && $cmdHistory->getValue() == $clone->uniques) {
+                                    log::add(__CLASS__, 'debug', $this->getHumanName() . ' Clones en historique - Aucune action : ' . ' Date = ' . $dateReal . ' => Mesure = ' . $clone->uniques);
+                                }
+                                else {      
+                                    log::add(__CLASS__, 'debug', $this->getHumanName() . ' Enregistrement clones : ' . ' Date = ' . $dateReal . ' => Mesure = ' . $clone->uniques);
+                                    $eqLogic_cmd->event($clone->uniques, $dateReal);
+                                }
                             }
                         }
                         
@@ -473,14 +473,14 @@ class github extends eqLogic {
                                     return;
                                 }
                                 $dateReal = $dt->format('Y-m-d 12:00:00');
-                            }
-                            $cmdHistory = history::byCmdIdDatetime($cmdId, $dateReal);
-                            if (is_object($cmdHistory) && $cmdHistory->getValue() == $view->uniques) {
-                                log::add(__CLASS__, 'debug', $this->getHumanName() . ' Views en historique - Aucune action : ' . ' Date = ' . $dateReal . ' => Mesure = ' . $view->uniques);
-                            }
-                            else {      
-                                log::add(__CLASS__, 'debug', $this->getHumanName() . ' Enregistrement views : ' . ' Date = ' . $dateReal . ' => Mesure = ' . $view->uniques);
-                                $eqLogic_cmd->event($view->uniques, $dateReal);
+                                $cmdHistory = history::byCmdIdDatetime($cmdId, $dateReal);
+                                if (is_object($cmdHistory) && $cmdHistory->getValue() == $view->uniques) {
+                                    log::add(__CLASS__, 'debug', $this->getHumanName() . ' Views en historique - Aucune action : ' . ' Date = ' . $dateReal . ' => Mesure = ' . $view->uniques);
+                                }
+                                else {      
+                                    log::add(__CLASS__, 'debug', $this->getHumanName() . ' Enregistrement views : ' . ' Date = ' . $dateReal . ' => Mesure = ' . $view->uniques);
+                                    $eqLogic_cmd->event($view->uniques, $dateReal);
+                                }
                             }
                         }
                     }
