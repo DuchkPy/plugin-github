@@ -440,7 +440,7 @@ class github extends eqLogic {
                             log::add(__CLASS__, 'error', $this->getHumanName() . ' repos/' . $this->getConfiguration('login') . '/' . $repo->name . '/traffic/clones?per=day: ' . $clones->message);
                         } 
                         else {
-                            $eqLogic_cmd = $existingRepo->getCmd(null, 'clones');
+                            $eqLogic_cmd = $existingRepo->getCmd(null, 'daily_unique_clones');
                             $cmdId = $eqLogic_cmd->getId();
                             foreach ($clones->clones as $clone) {
                                 $dt = DateTime::createFromFormat('Y-m-d', substr($clone->timestamp, 0, 10));
@@ -465,7 +465,7 @@ class github extends eqLogic {
                             log::add(__CLASS__, 'error', $this->getHumanName() . ' repos/' . $this->getConfiguration('login') . '/' . $repo->name . '/traffic/views?per=day: ' . $clones->message);
                         } 
                         else {
-                            $eqLogic_cmd = $existingRepo->getCmd(null, 'views');
+                            $eqLogic_cmd = $existingRepo->getCmd(null, 'daily_unique_views');
                             $cmdId = $eqLogic_cmd->getId();
                             foreach ($views->views as $view) {
                                 $dt = DateTime::createFromFormat('Y-m-d', substr($view->timestamp, 0, 10));
