@@ -343,7 +343,7 @@ class github extends eqLogic {
 
 	public function preRemove() {
 		if ($this->getConfiguration('type') == "account") {
-			self::removeAllRepos($this->getId());
+			self::removeAllRepos($this->getConfiguration('login'));
 		}
 	}
 
