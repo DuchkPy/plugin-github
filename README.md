@@ -1,3 +1,6 @@
+> **Warning**
+> This plugin is no longer maintained
+
 # plugin-github
 This is a plugin for Jeedom aimed at retrieving information about your Github repositories.
 
